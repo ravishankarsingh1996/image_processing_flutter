@@ -1,9 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:image_filter_cropper_sketch/custom_libraries/image_filter/photofilters.dart';
+import 'package:image_filter_cropper_sketch/image_editor_page.dart';
 import 'package:image_filter_cropper_sketch/image_picker_handler.dart';
 import 'package:path/path.dart';
-import 'package:photofilters/photofilters.dart';
 import 'package:image/image.dart' as imageLib;
 
 class HomeScreen extends StatefulWidget {
@@ -20,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen>
   AnimationController _controller;
   ImagePickerHandler imagePicker;
   String fileName;
-  List<Filter> filters = presetFitersList;
+  List<Filter> filters = presetFiltersList;
   List<File> imageFileList = [];
 
   Future getImage(context) async {
@@ -33,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen>
         builder: (context) => new PhotoFilterSelector(
               title: Text("Photo Filter Example"),
               image: image,
-              filters: presetFitersList,
+              filters: presetFiltersList,
               filename: fileName,
               loader: Center(child: CircularProgressIndicator()),
               fit: BoxFit.contain,
@@ -72,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen>
     return new Scaffold(
       appBar: new AppBar(
         actions: <Widget>[
-          IconButton(
+          (imageFileList.length > 1) ?IconButton(
               icon: Icon(Icons.undo),
               onPressed: () {
                 print('file legth ' + imageFileList.length.toString());
@@ -82,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen>
                     _image = imageFileList[imageFileList.length - 1];
                   });
                 }
-              }),
+              }): Container(),
         ],
         title: new Text(
           widget.title,
@@ -200,6 +201,12 @@ class _HomeScreenState extends State<HomeScreen>
     setState(() {
       this._image = _image;
       imageFileList.add(_image);
+      Navigator.push(
+        this.context,
+        new MaterialPageRoute(
+          builder: (context) => ImageEditor(imageFile: _image,),
+        ),
+      );
     });
   }
 }
