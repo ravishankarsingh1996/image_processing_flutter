@@ -1,11 +1,11 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:image/image.dart' as imageLib;
 import 'package:image_filter_cropper_sketch/custom_libraries/image_filter/photofilters.dart';
 import 'package:image_filter_cropper_sketch/image_editor_page.dart';
 import 'package:image_filter_cropper_sketch/image_picker_handler.dart';
 import 'package:path/path.dart';
-import 'package:image/image.dart' as imageLib;
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key key, this.title}) : super(key: key);
@@ -184,6 +184,7 @@ class _HomeScreenState extends State<HomeScreen>
                                   color: Colors.yellow,
                                 ),
                               ),
+
                             ],
                           ),
                         )
