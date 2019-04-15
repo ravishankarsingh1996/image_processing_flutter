@@ -100,6 +100,10 @@ class _ImageEditorState extends State<ImageEditor> {
     );
   }
 
+  Future<imageLib.Image> getDecodedImage(List<int> bytesSync)async {
+    return await imageLib.decodeImage(bytesSync);
+  }
+
   Future getImage(context) async {
     _fileName = basename(_image.path);
     var image = imageLib.decodeImage(_image.readAsBytesSync());
